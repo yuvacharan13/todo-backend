@@ -12,23 +12,23 @@ app.use(bodyParser.json())
 var ObjectId = require('mongodb').ObjectID;
 
 
-function authorize (req , res , next){
-    try{
-    if(req.headers.auth !== undefined){
-        let jwtmessage = jwt.verify(req.headers.auth , process.env.JWTTK)
-        res.locals.user = jwtmessage.user
-        next()
-    }else{
-        res.status(404).json({ message: "authorization failed" });
-    }
-}
-catch(err){
-    console.log(err)
-    res.status(404).json({ message: "authorization failed" });
-}
-}
+// function authorize (req , res , next){
+//     try{
+//     if(req.headers.auth !== undefined){
+//         let jwtmessage = jwt.verify(req.headers.auth , process.env.JWTTK)
+//         res.locals.user = jwtmessage.user
+//         next()
+//     }else{
+//         res.status(404).json({ message: "authorization failed" });
+//     }
+// }
+// catch(err){
+//     console.log(err)
+//     res.status(404).json({ message: "authorization failed" });
+// }
+// }
 
-app.get('/',[authorize], async (req,res) => { 
+app.get('/', async (req,res) => { 
     try {
         res.send("hai");
     }
@@ -39,7 +39,7 @@ app.get('/',[authorize], async (req,res) => {
     }
 })
 
-app.get('/fetch',[authorize], async (req, res) => {
+app.get('/fetch', async (req, res) => {
     try {
         console.log("hello1");
         const client = await mongodb.connect(url, {
@@ -59,7 +59,7 @@ app.get('/fetch',[authorize], async (req, res) => {
     }
 })
 
-app.post('/insert',[authorize], async (req, res) => {
+app.post('/insert', async (req, res) => {
     console.log(req.body)
     try {
         const client = await mongodb.connect(url, {
@@ -80,7 +80,7 @@ app.post('/insert',[authorize], async (req, res) => {
 })
 
 
-app.delete('/remove/:id',[authorize], async (req, res) => {
+app.delete('/remove/:id', async (req, res) => {
     try {
         const client = await mongodb.connect(url, {
             useUnifiedTopology: true
