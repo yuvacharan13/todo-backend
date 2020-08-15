@@ -4,7 +4,8 @@ const app = express();
 // const url = "mongodb://localhost:27017";
 const url = "mongodb+srv://dbUser:dbUserPassword@todo-app.k8b7z.mongodb.net/todo-app?retryWrites=true&w=majority";
 const cors = require('cors');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const PORT = process.env.PORT || 4040;
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -84,6 +85,6 @@ app.delete('/remove/:id', async (req, res) => {
 })
 
 
-app.listen(4040, () => {
-    console.log("Listening at the port 4040...")
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
 });
