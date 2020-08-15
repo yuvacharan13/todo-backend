@@ -10,6 +10,16 @@ app.use(cors());
 app.use(bodyParser.json())
 var ObjectId = require('mongodb').ObjectID;
 
+app.get('/', async (req,res) => { 
+    try {
+        res.send("hai");
+    }
+    catch (error) {
+        res.status(500).json({
+            message: "Something Went Wrong"
+        })
+    }
+})
 
 app.get('/fetch', async (req, res) => {
     try {
